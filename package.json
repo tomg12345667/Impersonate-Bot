@@ -1,0 +1,23 @@
+{
+  "name": "impersonate-bot",
+  "version": "1.0.0",
+  "description": "Bot to impersonate ppl for discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alex-VOIP/impersonate-bot.git"
+  },
+  "author": "Alex R",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alex-VOIP/impersonate-bot/issues"
+  },
+  "homepage": "https://github.com/Alex-VOIP/impersonate-bot#readme",
+  "dependencies": {
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1"
+  }
+}
