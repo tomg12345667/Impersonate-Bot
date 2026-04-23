@@ -96,4 +96,6 @@ app.post("/toggle-role", (req, res) => {
   res.redirect("/panel");
 });
 
-app.listen(3000, () => console.log("Panel running on http://localhost:3000"));
+app.listen(9000, "0.0.0.0", () => {
+  console.log("Panel running on port 9000");
+});
