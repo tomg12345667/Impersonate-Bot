@@ -1,6 +1,7 @@
 {
   "name": "impersonate-bot",
   "version": "1.0.0",
+  "type": "module",
   "description": "Bot to impersonate ppl for discord",
   "main": "index.js",
   "scripts": {
@@ -18,6 +19,9 @@
   "homepage": "https://github.com/Alex-VOIP/impersonate-bot#readme",
   "dependencies": {
     "discord.js": "^14.13.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "body-parser": "^1.20.2"
   }
 }
