@@ -29,11 +29,14 @@ const command = {
 client.once('ready', async () => {
   console.log(`Logged in as ${client.user.tag}`);
 
-  const rest = new REST({ version: '10' }).setToken(token);
-  await rest.put(Routes.applicationCommands(clientId), { body: [command] });
-
-  console.log('command registered');
-});
+  try {
+    const rest = new REST({ version: '10' }).setToken(token);
+    await rest.put(Routes.applicationCommands(clientId), { body: [command] });
+    console.log('command registered');
+  } catch (error) {
+    console.error('Failed to register commands:', error);
+  }
+});s
 
 client.on('interactionCreate', async interaction => {
   if (!interaction.isChatInputCommand()) return;

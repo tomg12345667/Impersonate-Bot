@@ -195,7 +195,14 @@ app.get("/panel", (req, res) => {
   `);
 });
 
-app.post("/toggle-user", (req, res) => {
+const requireAuth = (req, res, next) => {
+  if (req.session && req.session.auth) {
+    return next(); 
+  }
+  return res.status(401).send("Unauthorized");
+};
+
+app.post("/toggle-user", requireAuth, (req, res) => {
   const data = loadData();
   const id = req.body.id;
 
@@ -209,7 +216,7 @@ app.post("/toggle-user", (req, res) => {
   res.redirect("/panel");
 });
 
-app.post("/toggle-role", (req, res) => {
+app.post("/toggle-role", requireAuth, (req, res) => {
   const data = loadData();
   const id = req.body.id;
 
@@ -223,7 +230,7 @@ app.post("/toggle-role", (req, res) => {
   res.redirect("/panel");
 });
 
-app.post("/delete-user", (req, res) => {
+app.post("/delete-user", requireAuth, (req, res) => {
   const data = loadData();
   const id = req.body.id;
 
@@ -233,7 +240,7 @@ app.post("/delete-user", (req, res) => {
   res.redirect("/panel");
 });
 
-app.post("/delete-role", (req, res) => {
+app.post("/delete-role", requireAuth, (req, res) => {
   const data = loadData();
   const id = req.body.id;
 
@@ -243,6 +250,8 @@ app.post("/delete-role", (req, res) => {
   res.redirect("/panel");
 });
 
-app.listen(9000, "0.0.0.0", () => {
-  console.log("Panel running on port 9000");
+const PORT = process.env.PORTAL_PORT || 9000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Panel running on port ${PORT}`);
 });
