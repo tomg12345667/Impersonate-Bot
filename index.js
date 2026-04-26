@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import fs from 'fs';
 import { Client, GatewayIntentBits, REST, Routes } from 'discord.js';
 
 const token = process.env.DISCORD_TOKEN;
@@ -7,6 +8,14 @@ const clientId = process.env.CLIENT_ID;
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
 });
+
+function getData() {
+  return JSON.parse(fs.readFileSync("./data.json"));
+}
+
+function saveData(data) {
+  fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
+}
 
 const command = {
   name: 'impersonate',
@@ -17,15 +26,15 @@ const command = {
   ]
 };
 
-// register slash commmds
 client.once('ready', async () => {
   console.log(`Logged in as ${client.user.tag}`);
+
   try {
     const rest = new REST({ version: '10' }).setToken(token);
     await rest.put(Routes.applicationCommands(clientId), { body: [command] });
     console.log('command registered');
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error('Failed to register commands:', error);
   }
 });
 
@@ -34,6 +43,16 @@ client.on('interactionCreate', async interaction => {
   if (interaction.commandName !== 'impersonate') return;
 
   await interaction.deferReply({ ephemeral: true });
+
+  const data = getData();
+
+  if (data.blockedUsers.includes(interaction.user.id)) {
+    return interaction.editReply('🚫 You are blocked from impersonating.');
+  }
+
+  if (interaction.member.roles.cache.some(r => data.blockedRoles.includes(r.id))) {
+    return interaction.editReply('🚫 Your role is blocked.');
+  }
 
   const targetUser = interaction.options.getUser('user');
   const messageText = interaction.options.getString('message');
@@ -49,6 +68,7 @@ client.on('interactionCreate', async interaction => {
 
   await webhook.send({ content: messageText });
   await webhook.delete();
+
   await interaction.editReply('Message sent');
 });
 

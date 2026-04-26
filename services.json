@@ -1,0 +1,12 @@
+{
+  "services": [
+    {
+      "name": "bot",
+      "file": "index.js"
+    },
+    {
+      "name": "panel",
+      "file": "panel.js"
+    }
+  ]
+}
