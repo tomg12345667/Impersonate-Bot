@@ -36,7 +36,7 @@ client.once('ready', async () => {
   } catch (error) {
     console.error('Failed to register commands:', error);
   }
-});s
+});
 
 client.on('interactionCreate', async interaction => {
   if (!interaction.isChatInputCommand()) return;
