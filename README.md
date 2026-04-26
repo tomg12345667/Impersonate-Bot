@@ -10,6 +10,8 @@ This is a quick bot i made where you can run /impersonate user message and it wi
 
 Rename .env.example to .env and set the bot token and app id (and optionally change portal port)
 
+# CHANGE PASSWORD INSIDE OF portal.js OTHERWISE ANYONE CAN LOGIN AS ADMIN
+
 then
 
 ```npm install```
