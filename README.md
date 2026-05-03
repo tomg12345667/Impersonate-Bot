@@ -34,4 +34,8 @@ Your password will be ```password123```, and your username will be ```admin```
 
 If you want no members to be able to access this, create a role named "Impersonation Block". Then add it into the "Blocked Roles". Insure you do not give the Server owner or you this.
 
+Remember to install the Newest Node.js! (Version 20)
+```curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -```
+```sudo apt install -y nodejs```
+
 
